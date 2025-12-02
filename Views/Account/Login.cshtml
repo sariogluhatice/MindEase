@@ -1,0 +1,28 @@
+@model MindEase.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<h1>MindEase Giriş</h1>
+
+<form asp-action="Login" method="post">
+    <div>
+        <label asp-for="Username">Kullanıcı Adı</label>
+        <input asp-for="Username" />
+    </div>
+
+    <div>
+        <label asp-for="Password">Şifre</label>
+        <input asp-for="Password" type="password" />
+    </div>
+
+    <div style="color:red">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@error.ErrorMessage</div>
+        }
+    </div>
+
+    <button type="submit">Giriş Yap</button>
+</form>

@@ -1,0 +1,27 @@
+@model IEnumerable<MindEase.Models.User>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>Kullanıcılar</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>UserType</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Username</td>
+                <td>@user.UserType</td>
+            </tr>
+        }
+    </tbody>
+</table>
