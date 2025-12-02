@@ -1,50 +1,131 @@
 /* _content/MindEase/Views/Shared/_Layout.cshtml.rz.scp.css */
-/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand[b-pmc6dlcwc7] {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+/* ---------- ROOT COLORS ---------- */
+:root[b-pmc6dlcwc7] {
+  --primary-color: #c2c1c1;
+  --secondary-color: #f46434;
+  --text-light: #f2f2f2;
+  --text-dark: #333;
 }
 
-a[b-pmc6dlcwc7] {
-  color: #0077cc;
+/* ---------- BODY ---------- */
+body[b-pmc6dlcwc7] {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: var(--text-dark);
 }
 
-.btn-primary[b-pmc6dlcwc7] {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+main[b-pmc6dlcwc7] {
+  padding-top: 90px; /* Fixed navbar boşluğu */
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
-.nav-pills .nav-link.active[b-pmc6dlcwc7], .nav-pills .show > .nav-link[b-pmc6dlcwc7] {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.border-top[b-pmc6dlcwc7] {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom[b-pmc6dlcwc7] {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow[b-pmc6dlcwc7] {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy[b-pmc6dlcwc7] {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-.footer[b-pmc6dlcwc7] {
-  position: absolute;
-  bottom: 0;
+/* ---------- HEADER NAVBAR ---------- */
+header[b-pmc6dlcwc7] {
+  position: fixed;
+  top: 0;
   width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+  background-color: var(--primary-color);
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
+.header-container[b-pmc6dlcwc7] {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.topnav ul[b-pmc6dlcwc7] {
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.topnav a[b-pmc6dlcwc7] {
+  text-decoration: none;
+  color: var(--text-light);
+  font-size: 17px;
+  padding: 14px 16px;
+  display: inline-block;
+}
+
+.topnav a:hover[b-pmc6dlcwc7] {
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 6px;
+}
+
+.logo[b-pmc6dlcwc7] {
+  font-size: 28px;
+  font-weight: bold;
+  color: white !important;
+  margin-right: 20px;
+}
+
+.nav-buttons[b-pmc6dlcwc7] {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.nav-buttons a[b-pmc6dlcwc7] {
+  background-color: var(--secondary-color);
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.nav-buttons a:hover[b-pmc6dlcwc7] {
+  opacity: 0.8;
+}
+
+/* ---------- FOOTER ---------- */
+footer[b-pmc6dlcwc7] {
+  width: 100%;
+  background-color: var(--primary-color);
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+.bottomnav ul[b-pmc6dlcwc7] {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 0;
+  margin: 0;
+}
+
+.bottomnav a[b-pmc6dlcwc7] {
+  color: var(--text-light);
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.bottomnav a:hover[b-pmc6dlcwc7] {
+  color: var(--secondary-color);
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+@media (max-width: 768px) {
+  .topnav ul[b-pmc6dlcwc7] {
+    flex-direction: column;
+    align-items: start;
+    padding: 10px;
+  }
+
+  .nav-buttons[b-pmc6dlcwc7] {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  main[b-pmc6dlcwc7] {
+    padding-top: 140px;
+  }
+}

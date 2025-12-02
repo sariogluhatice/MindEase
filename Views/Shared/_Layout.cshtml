@@ -1,50 +1,70 @@
-﻿<!DOCTYPE html>
+﻿@* Views/Shared/_Layout.cshtml *@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MindEase</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MindEase.styles.css" asp-append-version="true" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Genel CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/css/style.css")" />
+
+    <!-- Sayfaya özel CSS için -->
+    @RenderSection("Styles", required: false)
 </head>
+
+
 <body>
+    <!-- HEADER (LOGO + NAVBAR) -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MindEase</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="header header-container">
+            <div class="topnav">
+                <nav>
+                    <ul>
+                        <li><a class="logo" href="@Url.Action("Index", "Home")">M</a></li>
+
+                        @* Bu linkleri sonra kendi action’larına göre düzenleyebilirsin *@
+                        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="@Url.Action("Services", "Home")">Services</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Blog</a></li>
+
+                        <li class="nav-buttons">
+                            <a href="@Url.Action("Login", "Account")">Log In</a>
+                            <a href="@Url.Action("Register", "Account")">Register</a>
                         </li>
                     </ul>
-                </div>
+                </nav>
             </div>
-        </nav>
+        </div>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - MindEase - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- ANA İÇERİK -->
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="bottomnav">
+            <nav>
+                <ul>
+                    <li><a href="#facebook">F</a></li>
+                    <li><a href="#X">X</a></li>
+                </ul>
+            </nav>
         </div>
     </footer>
+
+    @* JS dosyaları *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
 
+    <script src="~/js/home.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

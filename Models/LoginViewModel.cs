@@ -6,3 +6,4 @@ namespace MindEase.Models
         public string Password { get; set; } = string.Empty;
     }
 }
+

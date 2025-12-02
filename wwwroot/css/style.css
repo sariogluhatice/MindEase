@@ -1,0 +1,304 @@
+/* ---------- ROOT COLORS ---------- */
+:root {
+  --primary-color: #c2c1c1;
+  --secondary-color: #f46434;
+  --text-light: #f2f2f2;
+  --text-dark: #333;
+}
+
+/* ---------- BODY ---------- */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: var(--text-dark);
+}
+
+main {
+  padding-top: 90px; /* Fixed navbar boşluğu */
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* ---------- HEADER NAVBAR ---------- */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.header-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.topnav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.topnav a {
+  text-decoration: none;
+  color: var(--text-light);
+  font-size: 17px;
+  padding: 14px 16px;
+  display: inline-block;
+}
+
+.topnav a:hover {
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 6px;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: white !important;
+  margin-right: 20px;
+}
+
+.nav-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.nav-buttons a {
+  background-color: var(--secondary-color);
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.nav-buttons a:hover {
+  opacity: 0.8;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  width: 100%;
+  background-color: var(--primary-color);
+  padding: 20px 0;
+  position: fixed;
+  bottom: 0;
+  float: left;
+  text-align: left;
+}
+
+.bottomnav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 0;
+  margin: 0;
+}
+
+.bottomnav a {
+  color: var(--text-light);
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.bottomnav a:hover {
+  color: var(--secondary-color);
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+@media (max-width: 768px) {
+  .topnav ul {
+    flex-direction: column;
+    align-items: start;
+    padding: 10px;
+  }
+
+  .nav-buttons {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  main {
+    padding-top: 140px;
+  }
+}
+/* ---------- LOGIN PAGE STYLES ---------- */
+:root {
+  --primary: #000000;
+  --secondary: #ffffff;
+  --accent: #ff5e5b;
+  --shadow: 8px 8px 0px var(--primary);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Courier New", monospace;
+}
+
+body {
+  background-color: var(--secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid var(--primary);
+  padding: 40px 30px;
+  background-color: var(--secondary);
+  box-shadow: var(--shadow);
+  position: relative;
+  border-radius: 12px;
+}
+
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: -6px;
+  bottom: -6px;
+  border: 1px solid var(--primary);
+  z-index: -1;
+  border-radius: 12px;
+}
+
+h1 {
+  color: var(--primary);
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--primary);
+  background-color: var(--secondary);
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+input:focus {
+  box-shadow: 4px 4px 0px var(--primary);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--accent);
+  color: var(--secondary);
+  border: 2px solid var(--primary);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--primary);
+}
+
+/* services page css */
+
+.services-section {
+  padding: 120px 0 60px; /* fixed nav için biraz üstten boşluk */
+  text-align: center;
+}
+
+.services-header h1 {
+  font-size: 32px;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.services-subtitle {
+  font-size: 16px;
+  color: var(--secondary-color);
+  margin-bottom: 40px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.service-card {
+  background-color: #f8cf57; /* sarı kutu */
+  padding: 20px;
+  width: 260px;
+  min-height: 180px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.service-card p {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.service-btn {
+  align-self: center;
+  border: 1px solid var(--secondary-color);
+  background: #fff;
+  color: var(--secondary-color);
+  padding: 6px 16px;
+  font-size: 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.service-btn:hover {
+  background: var(--secondary-color);
+  color: #fff;
+}
+
+/* Küçük ekranlar için tek sütuna düşür */
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}

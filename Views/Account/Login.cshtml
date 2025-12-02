@@ -1,28 +1,25 @@
-@model MindEase.Models.LoginViewModel
-
 @{
-    ViewData["Title"] = "Giriş Yap";
+    ViewData["Title"] = "MindEase Giriş";
 }
 
-<h1>MindEase Giriş</h1>
+@section Styles {
+    <link rel="stylesheet" href="@Url.Content("~/css/login.css")" />
+}
 
-<form asp-action="Login" method="post">
-    <div>
-        <label asp-for="Username">Kullanıcı Adı</label>
-        <input asp-for="Username" />
-    </div>
+<div class="login-container">
+    <h1>MindEase Giriş</h1>
 
-    <div>
-        <label asp-for="Password">Şifre</label>
-        <input asp-for="Password" type="password" />
-    </div>
+    <form method="post" asp-action="Login">
+        <div class="input-group">
+            <label for="UserName">Kullanıcı Adı</label>
+            <input id="UserName" name="UserName" type="text" />
+        </div>
 
-    <div style="color:red">
-        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-        {
-            <div>@error.ErrorMessage</div>
-        }
-    </div>
+        <div class="input-group">
+            <label for="Password">Şifre</label>
+            <input id="Password" name="Password" type="password" />
+        </div>
 
-    <button type="submit">Giriş Yap</button>
-</form>
+        <button type="submit">Giriş Yap</button>
+    </form>
+</div>

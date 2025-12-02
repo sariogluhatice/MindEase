@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hyJ+qpeANMzfa9+/VY8tqHx0I+XWkHtIiq2pBMjvSPE=",
+  "Hash": "k6XWZzBcUBZpGALk2ZTgNOe2dM9JVbbqjD8T4SwhOpE=",
   "Source": "MindEase",
   "BasePath": "_content/MindEase",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/site.css"
+    },
+    {
+      "Identity": "/Users/hatice/Projects/MindEase/MindEase/wwwroot/css/style.css",
+      "SourceId": "MindEase",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hatice/Projects/MindEase/MindEase/wwwroot/",
+      "BasePath": "_content/MindEase",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/style.css"
     },
     {
       "Identity": "/Users/hatice/Projects/MindEase/MindEase/wwwroot/favicon.ico",
