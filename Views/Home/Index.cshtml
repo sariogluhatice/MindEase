@@ -1,3 +1,53 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+ 
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-left">
+            <h1>Your Mind, Our Care</h1>
+            <h2>AI-Supported Psychological Help</h2>
+            <p class="hero-sub">Connect with psychologists or chat with our AI assistant</p>
+
+            <div class="hero-cta">
+                <a class="btn primary" asp-controller="Users" asp-action="Index">Get Started</a>
+                <a class="btn outline" asp-controller="Home" asp-action="Services">Learn More</a>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="image-box">Image</div>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works">
+    <div class="section-header">
+        <h3>How It Works</h3>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <h4>Determine Your Needs (AI Test)</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
+        </div>
+        <div class="feature-card">
+            <h4>Smartly Match (AI Analysis)</h4>
+            <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div class="feature-card">
+            <h4>Easily Schedule Your Appointment</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+        </div>
+        <div class="feature-card">
+            <h4>Check Your Mood Status</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+        <style>
+            /* Page-specific small tweaks can go here if needed */
+        </style>
+}
