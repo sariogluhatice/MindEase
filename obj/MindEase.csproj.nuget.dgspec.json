@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/hatice/Projects/MindEase/MindEase/MindEase.csproj": {}
+    "/Users/hatice/Desktop/MindEase/MindEase.csproj": {}
   },
   "projects": {
-    "/Users/hatice/Projects/MindEase/MindEase/MindEase.csproj": {
+    "/Users/hatice/Desktop/MindEase/MindEase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hatice/Projects/MindEase/MindEase/MindEase.csproj",
+        "projectUniqueName": "/Users/hatice/Desktop/MindEase/MindEase.csproj",
         "projectName": "MindEase",
-        "projectPath": "/Users/hatice/Projects/MindEase/MindEase/MindEase.csproj",
+        "projectPath": "/Users/hatice/Desktop/MindEase/MindEase.csproj",
         "packagesPath": "/Users/hatice/.nuget/packages/",
-        "outputPath": "/Users/hatice/Projects/MindEase/MindEase/obj/",
+        "outputPath": "/Users/hatice/Desktop/MindEase/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/hatice/.nuget/NuGet/NuGet.Config"
