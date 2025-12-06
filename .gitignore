@@ -23,4 +23,24 @@ obj/
 # OS files
 .DS_Store
 Thumbs.db
+# Build output
+bin/
+obj/
 
+# User-specific
+*.user
+*.suo
+
+# Logs
+*.log
+
+# EF/DB
+*.db
+
+# VS/VS Code
+.vscode/
+*.code-workspace
+
+# Secrets (isteğe bağlı)
+appsettings.Development.json
+appsettings.Local.json

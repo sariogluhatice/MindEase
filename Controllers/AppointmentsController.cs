@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MindEase.Data;
 using MindEase.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace MindEase.Controllers
 {
@@ -14,36 +18,28 @@ namespace MindEase.Controllers
             _context = context;
         }
 
-        // GET: /Appointments
-        public async Task<IActionResult> Index(string? searchString)
+        // GET: Appointments
+        // GET: Appointments
+        public IActionResult Index(string searchString)
         {
-            // Kullanıcı giriş yapmış mı kontrol et
-            var userId = HttpContext.Session.GetInt32("UserId");
-            if (userId == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            var isTherapist = IsCurrentUserTherapist();
 
-            var appointments = _context.Appointments
-                .Include(a => a.User)
-                .Where(a => a.UserId == userId);
+            var list = _context.Appointments
+                .Where(a => string.IsNullOrWhiteSpace(searchString) || a.Title.Contains(searchString))
+                .OrderBy(a => a.AppointmentDate)
+                .ToList();
 
-            // Arama özelliği
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                appointments = appointments.Where(a => 
-                    a.Title.Contains(searchString) || 
-                    a.Notes!.Contains(searchString));
-            }
-
+            ViewBag.IsTherapist = isTherapist;
+            ViewBag.Now = DateTime.UtcNow;
             ViewBag.SearchString = searchString;
-            return View(await appointments.OrderByDescending(a => a.AppointmentDate).ToListAsync());
+
+            return View(list);
         }
+
 
         // GET: /Appointments/Create
         public IActionResult Create()
         {
-            // Kullanıcı giriş yapmış mı kontrol et
             if (HttpContext.Session.GetInt32("UserId") == null)
             {
                 return RedirectToAction("Login", "Account");
@@ -54,28 +50,29 @@ namespace MindEase.Controllers
         // POST: /Appointments/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Appointment appointment)
+        public IActionResult Create(Appointment appointment)
         {
-            var userId = HttpContext.Session.GetInt32("UserId");
-            if (userId == null)
+            if (!ModelState.IsValid)
+                return View(appointment);
+
+            var isTherapist = IsCurrentUserTherapist();
+
+            // Therapist değilse veya boşsa Pending
+            if (!isTherapist || string.IsNullOrWhiteSpace(appointment.Status))
             {
-                return RedirectToAction("Login", "Account");
+                appointment.Status = "Pending";
             }
 
-            // UserId'yi session'dan al
-            appointment.UserId = userId.Value;
-
-            // User navigation property'yi temizle (validation için)
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId != null)
+            {
+                appointment.UserId = userId.Value;
+            }
             ModelState.Remove("User");
 
-            if (ModelState.IsValid)
-            {
-                _context.Appointments.Add(appointment);
-                await _context.SaveChangesAsync();
-                TempData["Success"] = "Appointment created successfully!";
-                return RedirectToAction(nameof(Index));
-            }
-            return View(appointment);
+            _context.Appointments.Add(appointment);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: /Appointments/Edit/5
@@ -119,7 +116,6 @@ namespace MindEase.Controllers
                 return NotFound();
             }
 
-            // UserId'yi session'dan al
             appointment.UserId = userId.Value;
             ModelState.Remove("User");
 
@@ -129,7 +125,6 @@ namespace MindEase.Controllers
                 {
                     _context.Update(appointment);
                     await _context.SaveChangesAsync();
-                    TempData["Success"] = "Appointment updated successfully!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -188,9 +183,68 @@ namespace MindEase.Controllers
             {
                 _context.Appointments.Remove(appointment);
                 await _context.SaveChangesAsync();
-                TempData["Success"] = "Appointment deleted successfully!";
             }
 
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Therapist'ler Status güncelleyebilir (DB şemasını değiştirmeden)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateStatus(int id, string status)
+        {
+            if (!IsCurrentUserTherapist())
+                return Forbid();
+
+            var appointment = _context.Appointments.FirstOrDefault(a => a.Id == id);
+            if (appointment == null)
+                return NotFound();
+
+            var allowed = new[] { "Pending", "Confirmed", "Completed", "Cancelled" };
+            if (!allowed.Contains(status))
+                return BadRequest("Invalid status");
+
+            appointment.Status = status;
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Approve(int id)
+        {
+            if (!IsCurrentUserTherapist())
+                return Forbid();
+
+            var appt = _context.Appointments.FirstOrDefault(a => a.Id == id);
+            if (appt == null) return NotFound();
+
+            // Sadece Completed ise approve yok. Cancelled artık approve edilebilir.
+            if (EqualsIgnoreCase(appt.Status, "Completed"))
+                return RedirectToAction(nameof(Index));
+
+            appt.Status = "Confirmed";
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Cancel(int id)
+        {
+            if (!IsCurrentUserTherapist())
+                return Forbid();
+
+            var appt = _context.Appointments.FirstOrDefault(a => a.Id == id);
+            if (appt == null) return NotFound();
+
+            // Completed ise cancel yok
+            if (EqualsIgnoreCase(appt.Status, "Completed"))
+                return RedirectToAction(nameof(Index));
+
+            appt.Status = "Cancelled";
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
@@ -198,6 +252,34 @@ namespace MindEase.Controllers
         {
             return _context.Appointments.Any(e => e.Id == id);
         }
+        private User GetCurrentUser()
+        {
+            // Önce Session'dan Username'i al
+            var username = HttpContext.Session.GetString("Username");
+
+            // Eğer Session'da yoksa, fallback olarak Identity'den dene
+            if (string.IsNullOrEmpty(username))
+            {
+                username = User?.Identity?.Name;
+            }
+
+            if (string.IsNullOrEmpty(username))
+                return null;
+
+            return _context.Users.FirstOrDefault(u => u.Username == username);
+        }
+
+        private bool IsCurrentUserTherapist()
+        {
+            var user = GetCurrentUser();
+            // DB’de "therapist" küçük olabilir, case-insensitive kontrol yap
+            return user != null && string.Equals(user.UserType, "therapist", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool EqualsIgnoreCase(string? a, string b)
+            => string.Equals(a ?? "", b, StringComparison.OrdinalIgnoreCase);
+
     }
+
 }
 
