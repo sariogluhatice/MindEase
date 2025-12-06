@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MindEase.Data;
 using MindEase.Models;
+using System.Security.Claims;
 
 namespace MindEase.Controllers
 {
@@ -49,6 +50,12 @@ namespace MindEase.Controllers
             HttpContext.Session.SetString("Username", user.Username);
             HttpContext.Session.SetString("UserType", user.UserType);
             HttpContext.Session.SetInt32("UserId", user.Id);
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim("UserType", (user.UserType ?? "").ToLowerInvariant())
+            };
 
             // Redirect based on user type
             return user.UserType switch
