@@ -18,11 +18,17 @@ namespace MindEase.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            // If already logged in, redirect to home
+            if (HttpContext.Session.GetString("Username") != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
         // POST: /Account/Login
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -35,40 +41,122 @@ namespace MindEase.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Kullanıcı adı veya şifre hatalı.");
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 return View(model);
             }
 
-            // UserType'a göre yönlendirme
-            if (user.UserType == "admin")
+            // Store user info in session
+            HttpContext.Session.SetString("Username", user.Username);
+            HttpContext.Session.SetString("UserType", user.UserType);
+            HttpContext.Session.SetInt32("UserId", user.Id);
+
+            // Redirect based on user type
+            return user.UserType switch
             {
-                return RedirectToAction("AdminDashboard");
-            }
-            else if (user.UserType == "therapist")
-            {
-                return RedirectToAction("TherapistDashboard");
-            }
-            else // user
-            {
-                return RedirectToAction("UserDashboard");
-            }
+                "admin" => RedirectToAction("AdminDashboard"),
+                "therapist" => RedirectToAction("TherapistDashboard"),
+                _ => RedirectToAction("UserDashboard")
+            };
         }
 
+        // GET: /Account/Register
+        [HttpGet]
+        public IActionResult Register()
+        {
+            // If already logged in, redirect to home
+            if (HttpContext.Session.GetString("Username") != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        // POST: /Account/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // Check if username already exists
+            var existingUser = await _context.Users
+                .FirstOrDefaultAsync(u => u.Username == model.Username);
+
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("Username", "This username is already taken.");
+                return View(model);
+            }
+
+            // Create new user
+            var user = new User
+            {
+                Username = model.Username,
+                Password = model.Password,
+                UserType = model.UserType
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            // Auto-login after registration
+            HttpContext.Session.SetString("Username", user.Username);
+            HttpContext.Session.SetString("UserType", user.UserType);
+            HttpContext.Session.SetInt32("UserId", user.Id);
+
+            // Redirect to appropriate dashboard
+            return user.UserType switch
+            {
+                "therapist" => RedirectToAction("TherapistDashboard"),
+                _ => RedirectToAction("UserDashboard")
+            };
+        }
+
+        // GET: /Account/Logout
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
+
+        // Dashboard Actions
         public IActionResult AdminDashboard()
         {
-            ViewBag.Message = "Admin paneline hoş geldin 🌟";
+            // Check if user is logged in and is admin
+            if (HttpContext.Session.GetString("UserType") != "admin")
+            {
+                return RedirectToAction("Login");
+            }
+
+            ViewBag.Username = HttpContext.Session.GetString("Username");
             return View();
         }
 
         public IActionResult TherapistDashboard()
         {
-            ViewBag.Message = "Terapist paneline hoş geldin 🧠";
+            // Check if user is logged in and is therapist
+            var userType = HttpContext.Session.GetString("UserType");
+            if (userType != "therapist" && userType != "admin")
+            {
+                return RedirectToAction("Login");
+            }
+
+            ViewBag.Username = HttpContext.Session.GetString("Username");
             return View();
         }
 
         public IActionResult UserDashboard()
         {
-            ViewBag.Message = "Kullanıcı paneline hoş geldin 😊";
+            // Check if user is logged in
+            if (HttpContext.Session.GetString("Username") == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            ViewBag.Username = HttpContext.Session.GetString("Username");
             return View();
         }
     }

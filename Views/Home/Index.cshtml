@@ -1,3 +1,68 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">AI-Powered Mental Health Support</div>
+                <h1 class="hero-title">
+                    Your Mind, <span>Our Care</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Connect with professional psychologists or chat with our AI assistant. 
+                    Take the first step towards better mental health today.
+                </p>
+                <div class="hero-buttons">
+                    <a href="@Url.Action("Services", "Home")" class="btn btn-primary">Explore Services</a>
+                    <a href="@Url.Action("Register", "Account")" class="btn btn-secondary">Get Started</a>
+                </div>
+            </div>
+            
+            <div class="home-image">
+                <img src="~/images/home-image.jpg" alt="Mental Wellness" class="home-img" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS SECTION -->
+<section class="how-it-works">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">How It Works</span>
+            <h2 class="section-title">Your Journey to Wellness</h2>
+            <p class="section-subtitle">
+                Simple steps to start your mental health journey with MindEase
+            </p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                 <div class="feature-icon">📋</div>
+                <h4 class="feature-title">Determine Your Needs</h4>
+                <p class="feature-desc">Take our AI-powered assessment to understand your mental health needs better.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h4 class="feature-title">Smart Match</h4>
+                <p class="feature-desc">Our AI analyzes your responses and matches you with the right resources and therapists.</p>
+            </div>
+            
+            <div class="feature-card">
+                 <div class="feature-icon">📅</div>
+                <h4 class="feature-title">Schedule Appointment</h4>
+                <p class="feature-desc">Easily book appointments with verified mental health professionals.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h4 class="feature-title">Track Progress</h4>
+                <p class="feature-desc">Monitor your mood and mental health progress with our tracking tools.</p>
+            </div>
+        </div>
+    </div>
+</section>

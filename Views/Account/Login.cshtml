@@ -1,25 +1,46 @@
+@model MindEase.Models.LoginViewModel
 @{
-    ViewData["Title"] = "MindEase Giriş";
+    ViewData["Title"] = "Login";
 }
 
-@section Styles {
-    <link rel="stylesheet" href="@Url.Content("~/css/login.css")" />
+<section class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">M</div>
+                <h1 class="auth-title">Welcome Back</h1>
+                <p class="auth-subtitle">Login to continue your wellness journey</p>
+            </div>
+            
+            <form asp-action="Login" method="post" class="auth-form">
+                <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+                
+                <div class="form-group">
+                    <label asp-for="Username" class="form-label">E-posta / Username</label>
+                    <input asp-for="Username" class="form-input" placeholder="Enter your username" />
+                    <span asp-validation-for="Username" class="field-validation-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <input asp-for="Password" type="password" class="form-input" placeholder="Enter your password" />
+                    <span asp-validation-for="Password" class="field-validation-error"></span>
+                </div>
+                
+                <div class="form-helper">
+                    <a href="#">Forgot your password?</a>
+                </div>
+                
+                <button type="submit" class="auth-btn">Login</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Don't have an account? <a asp-action="Register" asp-controller="Account">Register</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
-
-<div class="login-container">
-    <h1>MindEase Giriş</h1>
-
-    <form method="post" asp-action="Login">
-        <div class="input-group">
-            <label for="UserName">Kullanıcı Adı</label>
-            <input id="UserName" name="UserName" type="text" />
-        </div>
-
-        <div class="input-group">
-            <label for="Password">Şifre</label>
-            <input id="Password" name="Password" type="password" />
-        </div>
-
-        <button type="submit">Giriş Yap</button>
-    </form>
-</div>

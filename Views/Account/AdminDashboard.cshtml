@@ -1,6 +1,17 @@
 @{
-    ViewData["Title"] = "Admin Paneli";
+    ViewData["Title"] = "Admin Dashboard";
 }
 
-<h1>@ViewBag.Message</h1>
-<p>Buraya admin'e özel şeyler koyarsın.</p>
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag">Admin Panel</span>
+        <h1 class="section-title">Merhaba, @ViewBag.Username!</h1>
+        <p class="section-subtitle">Admin Dashboard</p>
+    </div>
+</section>
+
+<section class="dashboard-section">
+    <div class="container">
+        <p>Buraya admin'e özel şeyler koyarsın.</p>
+    </div>
+</section>

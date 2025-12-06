@@ -1,53 +1,90 @@
 @{
     ViewData["Title"] = "Our Services";
+    var isLoggedIn = Context.Session.GetString("Username") != null;
 }
 
+<!-- SERVICES HERO -->
+<section class="services-hero">
+    <div class="container">
+        <h1 class="services-hero-title">OUR <span>SERVICES</span></h1>
+        <p class="services-hero-subtitle">Breaking Stigmas, Building Strength</p>
+    </div>
+</section>
+
+<!-- SERVICES GRID -->
 <section class="services-section">
     <div class="container">
-        <div class="services-header">
-            <h1>OUR SERVICES</h1>
-            <p class="services-subtitle">Breaking Stigmas, Building Strength</p>
-        </div>
-
         <div class="services-grid">
-            <!-- Card 1 -->
+            <!-- Service 1: Mood Tracker -->
             <div class="service-card">
-                <h3>Personal Therapy</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Short description about the service goes here.
+                <div class="service-icon">📊</div>
+                <h3 class="service-title">Mood Tracker</h3>
+                <p class="service-desc">
+                    Track your daily emotions and identify patterns in your mental health. 
+                    Our AI-powered insights help you understand your emotional journey better.
                 </p>
-                <button class="service-btn">Read more</button>
+                @if (isLoggedIn)
+                {
+                    <a href="@Url.Action("Index", "Appointments")" class="service-btn">Learn More →</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account")" class="service-btn">Learn More →</a>
+                }
             </div>
-
-            <!-- Card 2 -->
+            
+            <!-- Service 2: Chat Assistant -->
             <div class="service-card">
-                <h3>Chat Support</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Short description about the service goes here.
+                <div class="service-icon">💬</div>
+                <h3 class="service-title">Chat Assistant</h3>
+                <p class="service-desc">
+                    Connect with our AI-powered chat assistant 24/7. Get immediate support, 
+                    coping strategies, and guided exercises whenever you need them.
                 </p>
-                <button class="service-btn">Read more</button>
+                @if (isLoggedIn)
+                {
+                    <a href="@Url.Action("Index", "Appointments")" class="service-btn">Start Chat →</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account")" class="service-btn">Start Chat →</a>
+                }
             </div>
-
-            <!-- Card 3 -->
+            
+            <!-- Service 3: Find a Therapist -->
             <div class="service-card">
-                <h3>Find a Therapist</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Short description about the service goes here.
+                <div class="service-icon">👨‍⚕️</div>
+                <h3 class="service-title">Find a Therapist</h3>
+                <p class="service-desc">
+                    Browse our network of licensed mental health professionals. 
+                    Find the perfect match based on your needs, preferences, and schedule.
                 </p>
-                <button class="service-btn">Read more</button>
+                @if (isLoggedIn)
+                {
+                    <a href="@Url.Action("Index", "Appointments")" class="service-btn">Browse Therapists →</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account")" class="service-btn">Browse Therapists →</a>
+                }
             </div>
-
-            <!-- Card 4 -->
+            
+            <!-- Service 4: Book Appointment -->
             <div class="service-card">
-                <h3>Book an Appointment</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Short description about the service goes here.
+                <div class="service-icon">📅</div>
+                <h3 class="service-title">Book Appointment</h3>
+                <p class="service-desc">
+                    Schedule therapy sessions at your convenience. Choose between 
+                    in-person or online sessions with flexible timing options.
                 </p>
-                <button class="service-btn">Read more</button>
+                @if (isLoggedIn)
+                {
+                    <a href="@Url.Action("Create", "Appointments")" class="service-btn">Book Now →</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account")" class="service-btn">Book Now →</a>
+                }
             </div>
         </div>
     </div>

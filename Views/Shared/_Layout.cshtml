@@ -1,70 +1,99 @@
-﻿@* Views/Shared/_Layout.cshtml *@
-<!DOCTYPE html>
-<html lang="en">
-
+﻿<!DOCTYPE html>
+<html lang="tr">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MindEase</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Genel CSS -->
-    <link rel="stylesheet" href="@Url.Content("~/css/style.css")" />
-
-    <!-- Sayfaya özel CSS için -->
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/css/style.css" />
+    
     @RenderSection("Styles", required: false)
 </head>
-
-
 <body>
-    <!-- HEADER (LOGO + NAVBAR) -->
-    <header>
-        <div class="header header-container">
-            <div class="topnav">
-                <nav>
-                    <ul>
-                        <li><a class="logo" href="@Url.Action("Index", "Home")">M</a></li>
-
-                        @* Bu linkleri sonra kendi action’larına göre düzenleyebilirsin *@
-                        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="@Url.Action("Services", "Home")">Services</a></li>
-                        <li><a href="#">Contact us</a></li>
-                        <li><a href="#">Blog</a></li>
-
-                        <li class="nav-buttons">
-                            <a href="@Url.Action("Login", "Account")">Log In</a>
-                            <a href="@Url.Action("Register", "Account")">Register</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <!-- Logo -->
+                <a href="@Url.Action("Index", "Home")" class="nav-logo">
+                    <div class="nav-logo-icon">M</div>
+                    <span>MindEase</span>
+                </a>
+                
+                <!-- Navigation Menu -->
+                <ul class="nav-menu">
+                    <li><a href="@Url.Action("Index", "Home")" class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Index" && ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">Home</a></li>
+                    <li><a href="@Url.Action("About", "Home")" class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "About" ? "active" : "")">About Us</a></li>
+                    <li><a href="@Url.Action("Services", "Home")" class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Services" ? "active" : "")">Services</a></li>
+                    <li><a href="@Url.Action("Contact", "Home")" class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Contact" ? "active" : "")">Contact Us</a></li>
+                    <li><a href="@Url.Action("Blog", "Home")" class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Blog" ? "active" : "")">Blog</a></li>
+                    @if (Context.Session.GetString("Username") != null)
+                    {
+                        <li><a href="@Url.Action("Index", "Appointments")" class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Appointments" ? "active" : "")">My Appointments</a></li>
+                    }
+                </ul>
+                
+                <!-- Auth Buttons -->
+                <div class="nav-buttons">
+                    @if (Context.Session.GetString("Username") != null)
+                    {
+                        <a href="@Url.Action("Logout", "Account")" class="nav-btn-logout">Logout</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "Account")" class="nav-btn-login">Login</a>
+                        <a href="@Url.Action("Register", "Account")" class="nav-btn-register">Register</a>
+                    }
+                </div>
+            </nav>
         </div>
     </header>
 
-    <!-- ANA İÇERİK -->
-    <main role="main">
+    <!-- MAIN CONTENT -->
+    <main>
         @RenderBody()
     </main>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="bottomnav">
-            <nav>
-                <ul>
-                    <li><a href="#facebook">F</a></li>
-                    <li><a href="#X">X</a></li>
-                </ul>
-            </nav>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">M</div>
+                    <span>MindEase</span>
+                </div>
+                
+                <div class="footer-social">
+                    <a href="#" title="Facebook">f</a>
+                    <a href="#" title="Twitter">X</a>
+                    <a href="#" title="LinkedIn">in</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Betul - SOFT3111 - Fall 2025 | Your Mind, Our Care</p>
+            </div>
         </div>
     </footer>
 
-    @* JS dosyaları *@
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="~/js/home.js"></script>
-
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+    
     @RenderSection("Scripts", required: false)
 </body>
-
 </html>

@@ -1,6 +1,17 @@
 @{
-    ViewData["Title"] = "Kullanıcı Paneli";
+    ViewData["Title"] = "User Dashboard";
 }
 
-<h1>@ViewBag.Message</h1>
-<p>Buraya normal kullanıcı özellikleri gelir.</p>
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag">Welcome Back</span>
+        <h1 class="section-title">Merhaba, @ViewBag.Username!</h1>
+        <p class="section-subtitle">User Dashboard</p>
+    </div>
+</section>
+
+<section class="dashboard-section">
+    <div class="container">
+        <p>Buraya normal kullanıcı özellikleri gelir.</p>
+    </div>
+</section>

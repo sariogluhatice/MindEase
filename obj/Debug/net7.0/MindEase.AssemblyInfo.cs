@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MindEase")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6c99a150422ac91c33c2a1525df60b61043f46e4")]
 [assembly: System.Reflection.AssemblyProductAttribute("MindEase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MindEase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

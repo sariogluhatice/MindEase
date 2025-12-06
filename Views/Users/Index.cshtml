@@ -4,24 +4,49 @@
     ViewData["Title"] = "Users";
 }
 
-<h1>Kullanıcılar</h1>
+<!-- USERS HERO -->
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag">Management</span>
+        <h1 class="section-title">All Users</h1>
+        <p class="section-subtitle">View and manage registered users</p>
+    </div>
+</section>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Username</th>
-            <th>UserType</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.Id</td>
-                <td>@user.Username</td>
-                <td>@user.UserType</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<!-- USERS TABLE -->
+<section class="users-section">
+    <div class="container">
+        <div class="users-card">
+            <div class="users-header">
+                <h2>Registered Users</h2>
+                <span class="users-count">@Model.Count() users</span>
+            </div>
+            
+            <div class="table-wrapper">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td><span class="user-id">#@user.Id</span></td>
+                                <td><span class="user-name">@user.Username</span></td>
+                                <td>
+                                    <span class="user-role role-@user.UserType">
+                                        @user.UserType.ToUpper()
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

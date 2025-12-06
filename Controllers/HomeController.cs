@@ -18,6 +18,26 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Services()
+    {
+        return View();
+    }
+
+    public IActionResult About()
+    {
+        return View();
+    }
+
+    public IActionResult Contact()
+    {
+        return View();
+    }
+
+    public IActionResult Blog()
+    {
+        return View();
+    }
+
     public IActionResult Privacy()
     {
         return View();
@@ -28,10 +48,4 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-    public IActionResult Services()
-    {
-        return View();
-    }
-
 }
-
